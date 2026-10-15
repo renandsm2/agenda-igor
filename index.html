@@ -64,7 +64,7 @@ img{max-width:100%}
 .who:hover{border-color:var(--muted)}
 .who .av{width:24px;height:24px;font-size:10.5px}
 .av{width:30px;height:30px;border-radius:50%;display:inline-grid;place-items:center;font-size:12px;font-weight:700;background:hsl(var(--h) 55% 86%);color:hsl(var(--h) 60% 22%);flex-shrink:0;line-height:1}
-.who-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.who-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:8px}
 .who-pick{justify-content:flex-start;min-height:48px;font-size:15px;gap:10px}
 .who-pick[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
 .who-row{display:flex;gap:8px}
@@ -834,7 +834,7 @@ function avatar(n) {
   let h = 12; for (const c of s) h = (h * 31 + c.charCodeAt(0)) % 360;
   return `<span class="av" style="--h:${h}" aria-hidden="true">${esc(ini)}</span>`;
 }
-const EQUIPE = ['Igor', 'Jorge', 'Lívia', 'Renan'];
+const EQUIPE = ['André', 'Igor', 'Jorge', 'Lívia', 'Renan'];
 function openQuem() {
   openModal(`<div class="sheet-h"><h2 class="sheet-t" id="mTitle">Quem está usando?</h2>${S.nome ? '<button type="button" class="btn btn-ghost btn-sm" data-close>Fechar</button>' : ''}</div>
     <div class="sheet-b"><p class="intro">Seu nome aparece nos recados e em quem mexeu em cada roteiro. Fica salvo neste aparelho.</p>
