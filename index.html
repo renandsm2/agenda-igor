@@ -17,7 +17,7 @@
 :root{
   --bg:#F8F4F2; --surface:#FFFFFF; --surface-2:#F1EAE6; --ink:#1E1614; --muted:#6F605B; --line:#E5DAD5;
   --accent:#B3301D; --accent-ink:#FFF7F4; --gold:#94600A;
-  --k-gravar:#B3301D; --k-postar:#94600A; --k-evento:#2A6788;
+  --k-gravar:#B3301D; --k-postar:#94600A; --k-evento:#2A6788; --k-aula-presencial:#7048B0; --k-aula-online:#1D7068; --viz-gasto:#2a78d6; --viz-vendas:#1baf7a;
   --f-exu:#B3301D; --f-pomba:#9C2257; --f-atabaque:#8A5428; --f-rotina:#1D7068; --f-eventos:#94600A; --f-outro:#7D6E69;
   --st-ideia:#B5A7A2; --st-escrevendo:#A06D0E; --st-pronto:#B3301D; --st-gravado:#2A6788; --st-postado:#2F7243;
   --ok:#2F7243; --danger:#B3261E;
@@ -32,7 +32,7 @@
   :root:not([data-theme="light"]){
     --bg:#15100E; --surface:#1F1816; --surface-2:#2A211E; --ink:#F3EBE6; --muted:#A99892; --line:#3B2F2A;
     --accent:#EC5E45; --accent-ink:#1B0C08; --gold:#E2A84A;
-    --k-gravar:#EC5E45; --k-postar:#E2A84A; --k-evento:#62AFD6;
+    --k-gravar:#EC5E45; --k-postar:#E2A84A; --k-evento:#62AFD6; --k-aula-presencial:#B99CF0; --k-aula-online:#4FB8AC; --viz-gasto:#3987e5; --viz-vendas:#199e70;
     --f-exu:#EC6A52; --f-pomba:#E86AA2; --f-atabaque:#D6A06A; --f-rotina:#4FB8AC; --f-eventos:#E2A84A; --f-outro:#A99892;
     --st-ideia:#6E605B; --st-escrevendo:#E2A84A; --st-pronto:#EC5E45; --st-gravado:#62AFD6; --st-postado:#72C285;
     --ok:#72C285; --danger:#F27A6E;
@@ -44,7 +44,7 @@
 :root[data-theme="dark"]{
   --bg:#15100E; --surface:#1F1816; --surface-2:#2A211E; --ink:#F3EBE6; --muted:#A99892; --line:#3B2F2A;
   --accent:#EC5E45; --accent-ink:#1B0C08; --gold:#E2A84A;
-  --k-gravar:#EC5E45; --k-postar:#E2A84A; --k-evento:#62AFD6;
+  --k-gravar:#EC5E45; --k-postar:#E2A84A; --k-evento:#62AFD6; --k-aula-presencial:#B99CF0; --k-aula-online:#4FB8AC; --viz-gasto:#3987e5; --viz-vendas:#199e70;
   --f-exu:#EC6A52; --f-pomba:#E86AA2; --f-atabaque:#D6A06A; --f-rotina:#4FB8AC; --f-eventos:#E2A84A; --f-outro:#A99892;
   --st-ideia:#6E605B; --st-escrevendo:#E2A84A; --st-pronto:#EC5E45; --st-gravado:#62AFD6; --st-postado:#72C285;
   --ok:#72C285; --danger:#F27A6E;
@@ -296,7 +296,7 @@ textarea{resize:vertical;line-height:1.5}
 .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
 .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
 .field{display:grid;gap:5px;min-width:0;align-content:start}
-.field>label,fieldset legend{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+.field>label,.field>.lbl,fieldset legend{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
 fieldset{border:1px solid var(--line);border-radius:10px;padding:10px 12px 12px;margin:0;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:8px;min-width:0}
 fieldset legend{padding:0 4px}
 .hint{font-size:12.5px;color:var(--muted)}
@@ -333,6 +333,71 @@ fieldset legend{padding:0 4px}
   .top-actions .btn{padding:4px 9px;min-height:32px;font-size:13px}
   .hero{padding-block:18px 16px}
 }
+/* menu adicionar + aulas */
+.addwrap{position:relative}
+.addmenu{position:absolute;right:0;top:calc(100% + 6px);z-index:30;min-width:220px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:6px;display:grid;gap:2px}
+.addmenu button{appearance:none;border:0;background:none;text-align:left;padding:10px 12px;border-radius:8px;font-weight:600;font-size:14.5px;color:var(--ink);cursor:pointer;display:flex;align-items:center;gap:10px}
+.addmenu button:hover,.addmenu button:focus-visible{background:var(--surface-2)}
+.addmenu i{width:10px;height:10px;border-radius:3px;background:var(--k);flex-shrink:0}
+.dias{display:flex;flex-wrap:wrap;gap:6px}
+.dia{position:relative;display:inline-flex}
+.dia input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.dia span{display:grid;place-items:center;min-width:48px;height:38px;padding:0 8px;border-radius:9px;border:1px solid var(--line);background:var(--surface);font-weight:700;font-size:13.5px;text-transform:capitalize}
+.dia input:checked + span{background:var(--k-aula-presencial);border-color:var(--k-aula-presencial);color:var(--bg)}
+.dia input:focus-visible + span{outline:2px solid var(--accent);outline-offset:2px}
+.dia input:disabled + span{opacity:.7}
+.exc{display:flex;flex-wrap:wrap;gap:6px 12px}
+.exc-i{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;padding:4px 10px;border-radius:999px;border:1px dashed var(--line);text-decoration:line-through;text-decoration-color:var(--muted)}
+.exc-i .link-btn{text-decoration:none;font-size:12.5px}
+.resumo{font-size:13.5px;color:var(--ink);background:var(--surface-2);border-radius:9px;padding:9px 12px}
+.aulas-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:12px}
+.aula-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:grid;gap:5px;cursor:pointer;align-content:start;min-width:0}
+.aula-card:hover{border-color:var(--muted)}
+.aula-card.fim{opacity:.62}
+.aula-t{font-size:16.5px;font-weight:700;line-height:1.25;overflow-wrap:anywhere}
+.aula-s{font-size:13.5px;color:var(--muted);overflow-wrap:anywhere}
+.aula-prox{font-size:13.5px;font-weight:700;color:var(--k)}
+/* tráfego */
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg-b{appearance:none;border:0;background:var(--surface);padding:7px 14px;font-weight:600;font-size:13.5px;cursor:pointer;color:var(--muted)}
+.seg-b + .seg-b{border-left:1px solid var(--line)}
+.seg-b[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.traf{display:grid;gap:28px}
+.traf-top{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
+@media (min-width:920px){.traf-top{grid-template-columns:360px minmax(0,1fr);align-items:start}}
+.saldo-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;display:grid;gap:10px;align-content:start}
+.saldo-card.st-danger{border-color:var(--danger)}
+.saldo-l{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px}
+.saldo-l .rot{width:100%}
+.saldo-v{font-family:var(--font-display);font-weight:900;font-size:clamp(40px,8vw,54px);line-height:1;font-variant-numeric:tabular-nums}
+.saldo-pill{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;padding:3px 10px;border-radius:999px;border:1px solid var(--sc);color:var(--sc)}
+.saldo-pill svg{width:14px;height:14px}
+.st-ok{--sc:var(--ok)} .st-danger{--sc:var(--danger)} .st-warn{--sc:var(--gold)} .st-muted{--sc:var(--muted)}
+.saldo-v.txt{color:var(--sc)}
+.saldo-s{font-size:14.5px;text-wrap:pretty}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:10px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:grid;gap:4px;align-content:start}
+.kpi-v{font-family:var(--font-display);font-weight:800;font-size:28px;line-height:1.05;font-variant-numeric:tabular-nums}
+.kpi-s{font-size:12.5px;color:var(--muted)}
+.charts{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
+@media (min-width:920px){.charts{grid-template-columns:1fr 1fr}}
+.chart{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 14px 8px;min-width:0}
+.chart h3{font-size:14px;font-weight:700;margin-bottom:6px}
+.chart .tot{font-weight:500;color:var(--muted);margin-left:6px}
+.chart svg{display:block;width:100%;height:auto;touch-action:pan-y}
+.chart .ax{fill:var(--muted);font-size:11px;font-family:var(--font-body)}
+.chart .gl{stroke:var(--line);stroke-width:1}
+.chart .bar.on{filter:brightness(1.25)}
+.chart-vazio{display:grid;place-items:center;min-height:150px;color:var(--muted);font-size:14px;text-align:center}
+.tip{position:absolute;top:0;left:0;pointer-events:none;background:var(--ink);color:var(--bg);border-radius:8px;padding:7px 10px;font-size:12.5px;line-height:1.45;white-space:nowrap;transform:translate(-50%,-108%);z-index:5}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+table.tbl{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
+.tbl th{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl td{padding:10px 12px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.tbl tr:last-child td{border-bottom:0}
+.tbl .r{text-align:right}
+details.dias summary{cursor:pointer;font-weight:600;color:var(--accent);padding:4px 0;width:max-content}
+details.dias[open] summary{margin-bottom:10px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -346,8 +411,15 @@ fieldset legend{padding:0 4px}
       </div>
       <div class="top-actions">
         <span id="mode" class="mode" hidden></span>
-        <button type="button" class="btn btn-primary needs-write" id="btnNovoRoteiro">+ Roteiro</button>
-        <button type="button" class="btn needs-write" id="btnNovoEvento">+ Evento</button>
+        <div class="addwrap needs-write">
+          <button type="button" class="btn btn-primary" id="btnAdd" aria-haspopup="true" aria-expanded="false" aria-controls="addMenu">+ Adicionar</button>
+          <div class="addmenu" id="addMenu" hidden>
+            <button type="button" data-act="novo-roteiro" style="--k:var(--k-gravar)"><i></i>Roteiro ou gravação</button>
+            <button type="button" data-act="nova-aula" data-mod="presencial" style="--k:var(--k-aula-presencial)"><i></i>Aula presencial</button>
+            <button type="button" data-act="nova-aula" data-mod="online" style="--k:var(--k-aula-online)"><i></i>Aula on-line</button>
+            <button type="button" data-act="novo-evento" style="--k:var(--k-evento)"><i></i>Evento</button>
+          </div>
+        </div>
       </div>
     </div>
     <div class="tabbar">
@@ -355,7 +427,9 @@ fieldset legend{padding:0 4px}
       <button type="button" class="tab" role="tab" data-view="hoje">Hoje</button>
       <button type="button" class="tab" role="tab" data-view="calendario">Calendário</button>
       <button type="button" class="tab" role="tab" data-view="roteiros">Roteiros<span class="n" id="nRot"></span></button>
+      <button type="button" class="tab" role="tab" data-view="aulas">Aulas<span class="n" id="nAul"></span></button>
       <button type="button" class="tab" role="tab" data-view="eventos">Eventos<span class="n" id="nEv"></span></button>
+      <button type="button" class="tab" role="tab" data-view="trafego">Tráfego<span class="n" id="nTraf"></span></button>
     </nav>
     <button type="button" class="who" id="btnQuem" hidden aria-label="Trocar quem está usando"></button>
     </div>
@@ -400,7 +474,10 @@ const PENDENTE = new Set(['ideia','escrevendo','pronto']);
 const TIPOS_EV = [['evento','Evento'],['casamento','Casamento'],['reuniao','Reunião'],['prazo','Prazo / entrega'],['outro','Outro']];
 const STATUS_EV = [['sondagem','Sondagem'],['negociando','Negociando'],['confirmado','Confirmado'],['concluido','Concluído'],['cancelado','Cancelado']];
 const ENCERRADO = new Set(['concluido','cancelado']);
-const VIEWS = ['hoje','calendario','roteiros','eventos'];
+const VIEWS = ['hoje','calendario','roteiros','aulas','eventos','trafego'];
+const MODALIDADES = [['presencial','Presencial'],['online','On-line']];
+const REPETE = [['nao','Não repete'],['semanal','Toda semana'],['quinzenal','A cada 2 semanas'],['mensal','Todo mês']];
+const NOMES_DIAS = ['domingo','segunda','terça','quarta','quinta','sexta','sábado'];
 
 const MESES = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
 const MESES_C = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
@@ -410,7 +487,7 @@ const DIAS_C = ['dom','seg','ter','qua','qui','sex','sáb'];
 /* ---------- estado ---------- */
 const S = {
   sb: null, nome: '', readOnly: false, noDb: false, live: false, everLive: false,
-  roteiros: [], eventos: [], recados: [], got: { r: false, e: false, m: false },
+  roteiros: [], eventos: [], recados: [], aulas: [], got: { r: false, e: false, m: false, a: false, t: false }, aulasEncerradas: false, trafego: null, trafPeriodo: 7,
   view: 'hoje', calY: 0, calM: 0, sel: '', frente: 'todas', busca: '', passados: false, lastDay: '',
 };
 
@@ -475,6 +552,53 @@ function byHora(field) {
   return (a, b) => (str(a[field]) || '99').localeCompare(str(b[field]) || '99') || str(a.titulo).localeCompare(str(b.titulo));
 }
 
+/* ---------- aulas e recorrência ---------- */
+const modOf = (a) => (a.modalidade === 'online' ? 'online' : 'presencial');
+const kAula = (a) => 'aula-' + modOf(a);
+function diasDaAula(a) {
+  const d = Array.isArray(a.dias) ? a.dias.filter((x) => Number.isInteger(x) && x >= 0 && x <= 6) : [];
+  return d.length ? [...new Set(d)].sort((x, y) => x - y) : (isYmd(a.inicio) ? [parse(a.inicio).getDay()] : []);
+}
+function aulaNoDia(a, day) {
+  if (!isYmd(a.inicio) || day < a.inicio) return false;
+  if (isYmd(a.ate) && day > a.ate) return false;
+  if (Array.isArray(a.excecoes) && a.excecoes.includes(day)) return false;
+  const rep = a.repete || 'nao';
+  if (rep === 'nao') return day === a.inicio;
+  const dd = parse(day);
+  if (rep === 'mensal') return dd.getDate() === parse(a.inicio).getDate();
+  if (!diasDaAula(a).includes(dd.getDay())) return false;
+  if (rep === 'quinzenal') {
+    const sem0 = addDays(a.inicio, -parse(a.inicio).getDay()), sem1 = addDays(day, -dd.getDay());
+    return (diffDays(sem0, sem1) / 7) % 2 === 0;
+  }
+  return true;
+}
+function proximaAula(a, from) {
+  let d = isYmd(a.inicio) && a.inicio > from ? a.inicio : from;
+  for (let i = 0; i < 400; i++, d = addDays(d, 1)) {
+    if (isYmd(a.ate) && d > a.ate) return '';
+    if (aulaNoDia(a, d)) return d;
+  }
+  return '';
+}
+const aulaEncerrada = (a) => !proximaAula(a, today());
+function descRepete(a) {
+  const rep = a.repete || 'nao';
+  let s;
+  if (rep === 'nao') s = isYmd(a.inicio) ? `Aula única em ${fmtShort(a.inicio)}` : 'Aula única';
+  else if (rep === 'mensal') s = isYmd(a.inicio) ? `Todo mês, no dia ${parse(a.inicio).getDate()}` : 'Todo mês';
+  else {
+    const ds = diasDaAula(a);
+    const nomes = listJoin(ds.map((d) => NOMES_DIAS[d]));
+    if (rep === 'quinzenal') s = `A cada 2 semanas: ${nomes}`;
+    else s = ds.length === 1 ? `${ds[0] === 0 || ds[0] === 6 ? 'Todo' : 'Toda'} ${nomes}` : `Toda semana: ${nomes}`;
+  }
+  if (rep !== 'nao' && isYmd(a.ate)) s += `, até ${fmtShort(a.ate)}`;
+  return s;
+}
+const horario = (a) => (a.hora ? (a.horaFim ? `${a.hora}–${a.horaFim}` : a.hora) : '');
+
 /* ---------- pedaços de interface ---------- */
 function chipFrente(k) { const f = frenteOf(k); return `<span class="chip" style="--c:${f.c}"><i></i>${esc(f.n)}</span>`; }
 function statusPill(k) { const sk = STATUS.some((s) => s[0] === k) ? k : 'ideia'; return `<span class="pill st-${sk}">${esc(label(STATUS, sk))}</span>`; }
@@ -514,6 +638,13 @@ function rowE(e) {
     <span class="row-s">${esc([e.local, label(STATUS_EV, e.status)].filter(Boolean).join(' · '))}</span></span>
   </button>`;
 }
+function rowA(a, day) {
+  return `<button type="button" class="row" style="--k:var(--k-${kAula(a)})" data-act="aula" data-id="${esc(a.id)}" data-date="${esc(day || '')}">
+    <span class="tag">Aula${a.hora ? `<small>${esc(horario(a))}</small>` : ''}</span>
+    <span class="row-main"><span class="row-t">${esc(a.titulo || 'Aula')}</span>
+    <span class="row-s">${esc([label(MODALIDADES, modOf(a)), descRepete(a), a.local].filter(Boolean).join(' · '))}</span></span>
+  </button>`;
+}
 function miniTicket(e) {
   const nd = !isYmd(e.data);
   const d = nd ? null : parse(e.data);
@@ -548,6 +679,8 @@ function mount() {
   if (S.view === 'hoje') mountHoje();
   else if (S.view === 'calendario') mountCal();
   else if (S.view === 'roteiros') mountRot();
+  else if (S.view === 'aulas') mountAulas();
+  else if (S.view === 'trafego') mountTraf();
   else mountEv();
   update();
 }
@@ -556,9 +689,14 @@ function update() {
   const ne = S.eventos.filter((e) => !ENCERRADO.has(e.status) && (!isYmd(e.data) || evEnd(e) >= today())).length;
   $('#nRot').textContent = S.got.r && nr ? nr : '';
   $('#nEv').textContent = S.got.e && ne ? ne : '';
+  const na = S.aulas.filter((a) => !aulaEncerrada(a)).length;
+  $('#nAul').textContent = S.got.a && na ? na : '';
+  $('#nTraf').textContent = S.trafego && S.trafego.situacao && S.trafego.situacao !== 'ok' ? '!' : '';
   if (S.view === 'hoje') updHoje();
   else if (S.view === 'calendario') updCal();
   else if (S.view === 'roteiros') updRot();
+  else if (S.view === 'aulas') updAulas();
+  else if (S.view === 'trafego') updTraf();
   else updEv();
   paintNames();
 }
@@ -582,6 +720,10 @@ function mountHoje() {
         <section class="sec" aria-labelledby="tPostar">
           <div class="sec-h"><h2 class="sec-t" id="tPostar">Postar hoje</h2><span class="count" id="cPostar"></span></div>
           <div class="pemba"></div><div class="list" id="lPostar"></div>
+        </section>
+        <section class="sec" aria-labelledby="tAulas">
+          <div class="sec-h"><h2 class="sec-t" id="tAulas">Aulas hoje</h2><span class="count" id="cAulas"></span></div>
+          <div class="pemba"></div><div class="rows" id="lAulas"></div>
         </section>
         <section class="sec" aria-labelledby="tSemana">
           <div class="sec-h"><h2 class="sec-t" id="tSemana">Próximos 7 dias</h2><button type="button" class="link-btn" data-act="go" data-view="calendario">Abrir calendário</button></div>
@@ -620,6 +762,7 @@ function updHoje() {
   const postar = R.filter((r) => r.postarEm === t).sort(byHora('horaPost'));
   const atras = R.filter((r) => isYmd(r.gravarEm) && r.gravarEm < t && PENDENTE.has(r.status)).sort((a, b) => a.gravarEm.localeCompare(b.gravarEm));
   const evHoje = E.filter((e) => onDay(e, t) && e.status !== 'cancelado');
+  const aulasHoje = S.aulas.filter((a) => aulaNoDia(a, t)).sort(byHora('hora'));
   const futuros = E.filter((e) => isYmd(e.data) && evEnd(e) >= t && !ENCERRADO.has(e.status)).sort((a, b) => a.data.localeCompare(b.data));
   const semData = E.filter((e) => !isYmd(e.data) && !ENCERRADO.has(e.status)).sort((a, b) => str(a.titulo).localeCompare(str(b.titulo)));
 
@@ -632,11 +775,13 @@ function updHoje() {
     const parts = [];
     if (g) parts.push(`<strong>${plural(g, 'vídeo para gravar', 'vídeos para gravar')}</strong>`);
     if (p) parts.push(`<strong>${plural(p, 'post', 'posts')}</strong>`);
+    if (aulasHoje.length) parts.push(`<strong>${plural(aulasHoje.length, 'aula', 'aulas')}</strong>`);
     if (evHoje.length) parts.push(`<strong>${plural(evHoje.length, 'evento', 'eventos')}</strong>`);
     sum = parts.length ? `Hoje tem ${listJoin(parts)}.` : 'Nada marcado para hoje.';
     const prox = futuros.find((e) => e.data > t);
     if (prox) sum += ` Próximo evento: <strong>${esc(prox.titulo)}</strong>, ${esc(countdown(prox).toLowerCase())}.`;
     if (atras.length) sum += ` <span class="late">${plural(atras.length, 'gravação ficou', 'gravações ficaram')} para trás.</span>`;
+    if (S.trafego && S.trafego.situacao === 'sem_saldo') sum += ' <span class="late">Os anúncios estão sem saldo.</span>';
   }
   $('#hHero').innerHTML = `<h1 class="hero-date"><span class="wd">${DIAS[d.getDay()]}</span><span class="dm">${d.getDate()} ${MESES_C[d.getMonth()]}</span></h1><p class="hero-sum">${sum}</p>`;
 
@@ -655,6 +800,11 @@ function updHoje() {
   $('#lPostar').innerHTML = !S.got.r ? loadingBox() : postar.length ? postar.map((r) => taskCard(r, 'postar')).join('')
     : emptyBox('Nenhum post marcado para hoje.', `<button type="button" class="btn btn-sm needs-write" data-act="novo-post" data-date="${t}">Agendar post para hoje</button>`);
 
+  // aulas
+  $('#cAulas').textContent = S.got.a && aulasHoje.length ? plural(aulasHoje.length, 'aula', 'aulas') : '';
+  $('#lAulas').innerHTML = !S.got.a ? loadingBox() : aulasHoje.length ? aulasHoje.map((a) => rowA(a, t)).join('')
+    : emptyBox('Nenhuma aula hoje.', `<button type="button" class="btn btn-sm needs-write" data-act="nova-aula" data-mod="presencial" data-date="${t}">Agendar aula</button>`);
+
   // semana
   let w = '';
   for (let i = 0; i < 7; i++) {
@@ -662,13 +812,17 @@ function updHoje() {
     const g = R.filter((r) => r.gravarEm === day).length;
     const p = R.filter((r) => r.postarEm === day).length;
     const ev = E.filter((e) => onDay(e, day) && e.status !== 'cancelado').length;
-    const aria = `${fmtLong(day)}: ${plural(g, 'gravação', 'gravações')}, ${plural(p, 'post', 'posts')}, ${plural(ev, 'evento', 'eventos')}`;
+    const ap = S.aulas.filter((a) => modOf(a) === 'presencial' && aulaNoDia(a, day)).length;
+    const ao = S.aulas.filter((a) => modOf(a) === 'online' && aulaNoDia(a, day)).length;
+    const aria = `${fmtLong(day)}: ${plural(g, 'gravação', 'gravações')}, ${plural(p, 'post', 'posts')}, ${plural(ap + ao, 'aula', 'aulas')}, ${plural(ev, 'evento', 'eventos')}`;
     w += `<button type="button" class="wd-cell${i === 0 ? ' is-today' : ''}" data-act="dia" data-date="${day}" aria-label="${esc(aria)}">
       <span class="wd-name">${i === 0 ? 'hoje' : DIAS_C[dd.getDay()]}</span><span class="wd-num">${dd.getDate()}</span>
       ${g ? `<span class="mini" style="--k:var(--k-gravar)"><b>${g}</b><span class="t">gravar</span></span>` : ''}
       ${p ? `<span class="mini" style="--k:var(--k-postar)"><b>${p}</b><span class="t">${p === 1 ? 'post' : 'posts'}</span></span>` : ''}
       ${ev ? `<span class="mini" style="--k:var(--k-evento)"><b>${ev}</b><span class="t">${ev === 1 ? 'evento' : 'eventos'}</span></span>` : ''}
-      ${!g && !p && !ev ? '<span class="free">livre</span>' : ''}
+      ${ap ? `<span class="mini" style="--k:var(--k-aula-presencial)"><b>${ap}</b><span class="t">presencial</span></span>` : ''}
+      ${ao ? `<span class="mini" style="--k:var(--k-aula-online)"><b>${ao}</b><span class="t">on-line</span></span>` : ''}
+      ${!g && !p && !ev && !ap && !ao ? '<span class="free">livre</span>' : ''}
     </button>`;
   }
   $('#lWeek').innerHTML = w;
@@ -707,13 +861,13 @@ function mountCal() {
   V.innerHTML = `<div class="wrap gut">
     <div class="page-h"><h1 class="page-t" id="calTitle"></h1>
       <div class="cal-nav"><button type="button" class="btn btn-sm" data-act="cal-prev" aria-label="Mês anterior">‹</button><button type="button" class="btn btn-sm" data-act="cal-hoje">Hoje</button><button type="button" class="btn btn-sm" data-act="cal-next" aria-label="Próximo mês">›</button></div></div>
-    <div class="keys"><span style="--k:var(--k-gravar)"><i></i>Gravar</span><span style="--k:var(--k-postar)"><i></i>Postar</span><span style="--k:var(--k-evento)"><i></i>Evento</span></div>
+    <div class="keys"><span style="--k:var(--k-gravar)"><i></i>Gravar</span><span style="--k:var(--k-postar)"><i></i>Postar</span><span style="--k:var(--k-aula-presencial)"><i></i>Aula presencial</span><span style="--k:var(--k-aula-online)"><i></i>Aula on-line</span><span style="--k:var(--k-evento)"><i></i>Evento</span></div>
     <div class="cal-wrap"><div class="cal-grid" id="calGrid"></div><aside class="day" id="dayPanel" aria-live="polite"></aside></div>
   </div>`;
 }
 function dayIndex(from, to) {
   const idx = {};
-  const slot = (d) => (idx[d] ||= { g: [], p: [], e: [] });
+  const slot = (d) => (idx[d] ||= { g: [], p: [], e: [], a: [] });
   for (const r of S.roteiros) {
     if (isYmd(r.gravarEm) && r.gravarEm >= from && r.gravarEm <= to) slot(r.gravarEm).g.push(r);
     if (isYmd(r.postarEm) && r.postarEm >= from && r.postarEm <= to) slot(r.postarEm).p.push(r);
@@ -722,6 +876,9 @@ function dayIndex(from, to) {
     if (!isYmd(e.data) || e.status === 'cancelado') continue;
     let d = e.data < from ? from : e.data; const end = evEnd(e) > to ? to : evEnd(e);
     for (let i = 0; d <= end && i < 120; i++, d = addDays(d, 1)) slot(d).e.push(e);
+  }
+  if (S.aulas.length) for (let d = from, i = 0; d <= to && i < 120; i++, d = addDays(d, 1)) {
+    for (const a of S.aulas) if (aulaNoDia(a, d)) slot(d).a.push(a);
   }
   return idx;
 }
@@ -734,8 +891,8 @@ function updCal() {
   $('#calTitle').textContent = `${MESES[m]} ${y}`;
   let h = DIAS_C.map((d) => `<div class="cal-dow">${d}</div>`).join('');
   for (let day = start; day <= end; day = addDays(day, 1)) {
-    const dd = parse(day), it = idx[day] || { g: [], p: [], e: [] };
-    const items = [...it.e.map((e) => ['evento', e.titulo]), ...it.g.sort(byHora('horaGravar')).map((r) => ['gravar', r.titulo]), ...it.p.sort(byHora('horaPost')).map((r) => ['postar', r.titulo])];
+    const dd = parse(day), it = idx[day] || { g: [], p: [], e: [], a: [] };
+    const items = [...it.e.map((e) => ['evento', e.titulo]), ...it.a.sort(byHora('hora')).map((a) => [kAula(a), `${a.hora ? a.hora + ' ' : ''}${a.titulo || 'Aula'}`]), ...it.g.sort(byHora('horaGravar')).map((r) => ['gravar', r.titulo]), ...it.p.sort(byHora('horaPost')).map((r) => ['postar', r.titulo])];
     const total = items.length;
     const cls = ['cell', dd.getMonth() !== m ? 'out' : '', day === t ? 'today' : '', day === S.sel ? 'sel' : ''].filter(Boolean).join(' ');
     const aria = `${fmtLong(day)}${total ? `, ${plural(total, 'item', 'itens')}` : ', livre'}`;
@@ -749,15 +906,15 @@ function updCal() {
   $('#calGrid').innerHTML = h;
 
   // painel do dia
-  const sel = S.sel, it = dayIndex(sel, sel)[sel] || { g: [], p: [], e: [] };
-  const n = it.g.length + it.p.length + it.e.length;
+  const sel = S.sel, it = dayIndex(sel, sel)[sel] || { g: [], p: [], e: [], a: [] };
+  const n = it.g.length + it.p.length + it.e.length + it.a.length;
   const dd = diffDays(t, sel);
   const rel = dd === 0 ? 'Hoje' : dd === 1 ? 'Amanhã' : dd === -1 ? 'Ontem' : dd > 1 ? `Daqui a ${dd} dias` : `Há ${-dd} dias`;
   $('#dayPanel').innerHTML = `<div><h2 class="day-t">${esc(fmtLong(sel))}</h2><p class="day-s">${esc(rel)}${n ? ` · ${plural(n, 'item', 'itens')}` : ''}</p></div>
     <div class="pemba"></div>
-    ${!S.got.r || !S.got.e ? loadingBox() : n ? `<div class="rows">${it.e.map(rowE).join('')}${it.g.sort(byHora('horaGravar')).map((r) => rowR(r, 'gravar')).join('')}${it.p.sort(byHora('horaPost')).map((r) => rowR(r, 'postar')).join('')}</div>` : emptyBox('Nada marcado neste dia.')}
+    ${!S.got.r || !S.got.e ? loadingBox() : n ? `<div class="rows">${it.e.map(rowE).join('')}${it.a.sort(byHora('hora')).map((a) => rowA(a, sel)).join('')}${it.g.sort(byHora('horaGravar')).map((r) => rowR(r, 'gravar')).join('')}${it.p.sort(byHora('horaPost')).map((r) => rowR(r, 'postar')).join('')}</div>` : emptyBox('Nada marcado neste dia.')}
     ${it.g.some((r) => r.texto || r.gancho) ? `<div><button type="button" class="btn btn-sm btn-primary" data-act="ler-dia" data-date="${sel}">Ler os roteiros do dia</button></div>` : ''}
-    <div class="day-add needs-write"><button type="button" class="btn btn-sm" data-act="novo-roteiro" data-date="${sel}">+ Gravação</button><button type="button" class="btn btn-sm" data-act="novo-post" data-date="${sel}">+ Post</button><button type="button" class="btn btn-sm" data-act="novo-evento" data-date="${sel}">+ Evento</button></div>`;
+    <div class="day-add needs-write"><button type="button" class="btn btn-sm" data-act="novo-roteiro" data-date="${sel}">+ Gravação</button><button type="button" class="btn btn-sm" data-act="novo-post" data-date="${sel}">+ Post</button><button type="button" class="btn btn-sm" data-act="nova-aula" data-mod="presencial" data-date="${sel}">+ Aula</button><button type="button" class="btn btn-sm" data-act="novo-evento" data-date="${sel}">+ Evento</button></div>`;
 }
 
 /* Roteiros */
@@ -797,6 +954,172 @@ function updRot() {
     </section>`;
   }).join('');
 }
+
+/* Aulas */
+function mountAulas() {
+  V.innerHTML = `<div class="wrap gut">
+    <div class="page-h"><h1 class="page-t">Aulas</h1>
+      <div class="toolbar"><label class="toggle" for="mostrarEncerradas"><input type="checkbox" id="mostrarEncerradas" ${S.aulasEncerradas ? 'checked' : ''}> Mostrar aulas encerradas</label>
+      <button type="button" class="btn needs-write" data-act="nova-aula" data-mod="online">+ Aula on-line</button>
+      <button type="button" class="btn btn-primary needs-write" data-act="nova-aula" data-mod="presencial">+ Aula presencial</button></div></div>
+    <div class="ev-body">
+      <section class="sec" aria-labelledby="tAP"><div class="sec-h"><h2 class="sec-t" id="tAP">Presenciais</h2><span class="count" id="cAP"></span></div><div class="pemba"></div><div class="aulas-list" id="lAP"></div></section>
+      <section class="sec" aria-labelledby="tAO"><div class="sec-h"><h2 class="sec-t" id="tAO">On-line</h2><span class="count" id="cAO"></span></div><div class="pemba"></div><div class="aulas-list" id="lAO"></div></section>
+    </div>
+  </div>`;
+  $('#mostrarEncerradas').addEventListener('change', (e) => { S.aulasEncerradas = e.target.checked; updAulas(); });
+}
+function aulaCard(a) {
+  const t = today(), prox = proximaAula(a, t);
+  const quando = !prox ? 'Encerrada' : prox === t ? 'Próxima aula: hoje' : `Próxima aula: ${DIAS_C[parse(prox).getDay()]}, ${fmtShort(prox)}`;
+  return `<article class="aula-card${prox ? '' : ' fim'}" style="--k:var(--k-${kAula(a)})" tabindex="0" role="button" data-act="aula" data-id="${esc(a.id)}">
+    <span class="kind">${esc(label(MODALIDADES, modOf(a)))}</span>
+    <h3 class="aula-t">${esc(a.titulo || 'Aula')}</h3>
+    <p class="aula-s">${esc([descRepete(a), horario(a)].filter(Boolean).join(' · '))}</p>
+    ${a.local ? `<p class="aula-s">${esc(a.local)}</p>` : ''}
+    <p class="aula-prox">${esc(quando)}</p>
+  </article>`;
+}
+function updAulas() {
+  const t = today();
+  const lista = S.aulas.filter((a) => S.aulasEncerradas || !aulaEncerrada(a))
+    .sort((x, y) => (proximaAula(x, t) || '9999').localeCompare(proximaAula(y, t) || '9999') || str(x.hora).localeCompare(str(y.hora)) || str(x.titulo).localeCompare(str(y.titulo)));
+  for (const [mod, el, c] of [['presencial', '#lAP', '#cAP'], ['online', '#lAO', '#cAO']]) {
+    const ls = lista.filter((a) => modOf(a) === mod);
+    $(c).textContent = ls.length ? plural(ls.length, 'aula cadastrada', 'aulas cadastradas') : '';
+    $(el).innerHTML = !S.got.a ? loadingBox() : ls.length ? ls.map(aulaCard).join('')
+      : emptyBox(mod === 'presencial' ? 'Nenhuma aula presencial na agenda.' : 'Nenhuma aula on-line na agenda.', `<button type="button" class="btn btn-sm needs-write" data-act="nova-aula" data-mod="${mod}">Cadastrar aula ${mod === 'presencial' ? 'presencial' : 'on-line'}</button>`);
+  }
+}
+
+/* Tráfego */
+const brl = (v) => (Number(v) || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+const num = (v) => (Number(v) || 0).toLocaleString('pt-BR');
+const pct = (v) => `${(Number(v) || 0).toLocaleString('pt-BR', { maximumFractionDigits: 2 })}%`;
+const ddmm = (d) => `${str(d).slice(8, 10)}/${str(d).slice(5, 7)}`;
+const SITUACAO = {
+  ok: { t: 'Rodando', p: 'gastando normalmente', c: 'ok', i: 'M5 12.5l4.5 4.5L19 7.5', s: 'O saldo cobre os anúncios.', s2: 'Os anúncios gastaram desde a leitura anterior.' },
+  sem_saldo: { t: 'Parados', p: 'provável falta de saldo', c: 'danger', i: 'M6 6l12 12M18 6L6 18', s: 'O saldo acabou e os anúncios pararam. Coloque crédito por Pix na conta de anúncios para voltar a rodar.', s2: 'Os anúncios não gastaram desde a última leitura, então provavelmente o saldo acabou. Coloque crédito por Pix na conta de anúncios para voltar a rodar.' },
+  provavel_sem_saldo: { t: 'Parados', p: 'provável falta de saldo', c: 'warn', i: 'M12 6v8M12 18h.01', s: 'As campanhas ativas não gastaram nada nos últimos dias. Confira o saldo no Gerenciador de Anúncios.', s2: 'As campanhas ativas não gastaram nada nos últimos dias. Confira o saldo no Gerenciador de Anúncios.' },
+  pausado: { t: 'Pausados', p: 'nenhuma campanha ativa', c: 'muted', i: 'M9 6v12M15 6v12', s: 'Nenhuma campanha ativa com orçamento. O Jorge não é avisado enquanto estiver assim.', s2: 'Nenhuma campanha ativa com orçamento. O Jorge não é avisado enquanto estiver assim.' },
+  desconhecida: { t: 'Sem leitura', p: 'sem dados novos', c: 'warn', i: 'M12 6v8M12 18h.01', s: 'A última leitura não conseguiu ver o saldo. Os outros números estão atualizados.', s2: 'A última leitura não trouxe dados suficientes. Os números abaixo são os mais recentes.' },
+};
+function mountTraf() {
+  V.innerHTML = `<div class="wrap gut">
+    <div class="page-h"><h1 class="page-t">Tráfego</h1>
+      <div class="seg" role="group" aria-label="Período dos números">
+        <button type="button" class="seg-b" data-act="traf-periodo" data-dias="7" aria-pressed="${S.trafPeriodo === 7}">Últimos 7 dias</button>
+        <button type="button" class="seg-b" data-act="traf-periodo" data-dias="30" aria-pressed="${S.trafPeriodo === 30}">Últimos 30 dias</button>
+      </div></div>
+    <div id="trafBody"></div>
+  </div>`;
+}
+function niceMax(v) {
+  if (!(v > 0)) return 1;
+  const p = 10 ** Math.floor(Math.log10(v)), m = v / p;
+  return (m <= 1 ? 1 : m <= 2 ? 2 : m <= 5 ? 5 : 10) * p;
+}
+function graficoBarras(dias, chave, cor, fmt, largura) {
+  const W = Math.max(280, Math.round(largura)), H = 190, pl = 52, pr = 6, pt = 10, pb = 24;
+  const vals = dias.map((x) => Number(x[chave]) || 0);
+  if (!vals.some((v) => v > 0)) return `<p class="chart-vazio">${chave === 'gasto' ? 'Nenhum investimento' : 'Nenhuma venda'} neste período.</p>`;
+  const top = niceMax(Math.max(0, ...vals));
+  const n = Math.max(1, dias.length), cw = (W - pl - pr) / n, gap = cw > 6 ? 2 : 1, bw = Math.max(1, cw - gap);
+  const y = (v) => H - pb - (v / top) * (H - pt - pb);
+  let g = '';
+  for (const t of [0, top / 2, top]) {
+    g += `<line class="gl" x1="${pl}" x2="${W - pr}" y1="${y(t)}" y2="${y(t)}"/><text class="ax" x="${pl - 6}" y="${y(t) + 4}" text-anchor="end">${esc(fmt(t))}</text>`;
+  }
+  let b = '';
+  vals.forEach((v, i) => {
+    if (v <= 0) return;
+    const x = pl + i * cw + gap / 2, h = Math.max(1, H - pb - y(v)), r = Math.min(4, bw / 2, h);
+    const y0 = H - pb, y1 = y0 - h;
+    b += `<path class="bar" data-i="${i}" style="fill:${cor}" d="M${x},${y0}V${y1 + r}Q${x},${y1} ${x + r},${y1}H${x + bw - r}Q${x + bw},${y1} ${x + bw},${y1 + r}V${y0}Z"/>`;
+  });
+  const marcas = [...new Set([0, Math.floor((n - 1) / 2), n - 1])];
+  const xl = marcas.map((i) => `<text class="ax" x="${pl + i * cw + cw / 2}" y="${H - 6}" text-anchor="${i === 0 ? 'start' : i === n - 1 ? 'end' : 'middle'}">${esc(ddmm(dias[i] && dias[i].d))}</text>`).join('');
+  return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" data-pl="${pl}" data-cw="${cw}" data-n="${n}">${g}${b}${xl}</svg><div class="tip" hidden></div>`;
+}
+function ligarTooltips(dias) {
+  document.querySelectorAll('#trafBody .chart').forEach((ch) => {
+    const svg = ch.querySelector('svg'), tip = ch.querySelector('.tip');
+    if (!svg || !tip) return;
+    const pl = Number(svg.dataset.pl), cw = Number(svg.dataset.cw), n = Number(svg.dataset.n);
+    const mostrar = (ev) => {
+      const rect = svg.getBoundingClientRect(), esc2 = rect.width / svg.viewBox.baseVal.width;
+      const i = Math.floor(((ev.clientX - rect.left) / esc2 - pl) / cw);
+      if (i < 0 || i >= n) { tip.hidden = true; return; }
+      const d = dias[i];
+      svg.querySelectorAll('.bar').forEach((p) => p.classList.toggle('on', Number(p.dataset.i) === i));
+      tip.innerHTML = `<b>${esc(fmtShort(d.d))}</b><br>Investido: ${esc(brl(d.gasto))}<br>Vendas: ${esc(num(d.compras))} · Cliques: ${esc(num(d.cliques))}`;
+      const cRect = ch.getBoundingClientRect();
+      tip.style.left = `${Math.min(Math.max(ev.clientX - cRect.left, 70), cRect.width - 70)}px`;
+      tip.style.top = `${rect.top - cRect.top + 18}px`;
+      tip.hidden = false;
+    };
+    svg.addEventListener('pointermove', mostrar);
+    svg.addEventListener('pointerdown', mostrar);
+    svg.addEventListener('pointerleave', () => { tip.hidden = true; svg.querySelectorAll('.bar.on').forEach((p) => p.classList.remove('on')); });
+  });
+}
+function updTraf() {
+  const el = $('#trafBody'); if (!el) return;
+  if (!S.got.t) { el.innerHTML = loadingBox(); return; }
+  const T = S.trafego;
+  if (!T) { el.innerHTML = emptyBox('Os números da conta de anúncios aparecem aqui depois da primeira leitura automática.'); return; }
+  const todos = (Array.isArray(T.diario) ? T.diario : []).filter((x) => isYmd(x.d)).sort((a, b) => a.d.localeCompare(b.d));
+  const dias = todos.slice(-S.trafPeriodo);
+  const soma = (k) => dias.reduce((acc, x) => acc + (Number(x[k]) || 0), 0);
+  const gasto = soma('gasto'), compras = soma('compras'), cliques = soma('cliques'), checkouts = soma('checkouts'), impressoes = soma('impressoes');
+  const sit = SITUACAO[T.situacao] || SITUACAO.desconhecida;
+  const saldo = T.saldo && T.saldo.lido ? Number(T.saldo.disponivel) : null;
+  const camps = Array.isArray(T.campanhas) ? T.campanhas : [];
+  const orcDia = camps.filter((c) => c.status === 'ACTIVE' && Number(c.orcamentoDia) > 0).reduce((acc, c) => acc + Number(c.orcamentoDia), 0);
+  const duracao = saldo != null && orcDia > 0 && saldo >= 5 ? Math.floor(saldo / orcDia) : null;
+  const quando = T.gravadoEm || T.atualizadoEm;
+  const largura = Math.max(280, (el.clientWidth >= 920 ? (el.clientWidth - 14) / 2 : el.clientWidth) - 30);
+  const periodoTxt = S.trafPeriodo === 7 ? 'nos últimos 7 dias' : 'nos últimos 30 dias';
+  const kpi = (rot, v, sub) => `<div class="kpi"><span class="rot">${esc(rot)}</span><span class="kpi-v">${esc(v)}</span><span class="kpi-s">${esc(sub)}</span></div>`;
+  el.innerHTML = `<div class="traf">
+    <section class="traf-top" aria-label="Resumo">
+      <div class="saldo-card st-${sit.c}">
+        <div class="saldo-l"><span class="rot">${saldo != null ? 'Saldo disponível' : 'Anúncios'}</span>
+          <span class="saldo-v${saldo != null ? '' : ' txt'}">${saldo != null ? esc(brl(saldo)) : esc(sit.t)}</span>
+          <span class="saldo-pill"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${sit.i}" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>${esc(saldo != null ? sit.t : sit.p)}</span></div>
+        <p class="saldo-s">${esc(saldo != null ? sit.s : sit.s2)}${duracao != null ? ` No orçamento atual das campanhas (${esc(brl(orcDia))} por dia), o saldo dura cerca de ${esc(plural(duracao, 'dia', 'dias'))}.` : ''}</p>
+        ${T.gastoDesdeAnterior != null || T.gastoTotal ? `<p class="hint">${esc([T.gastoDesdeAnterior != null ? `Gastou ${brl(T.gastoDesdeAnterior)} desde a leitura anterior` : '', T.gastoTotal ? `Gasto total da conta: ${brl(T.gastoTotal)}` : ''].filter(Boolean).join(' · '))}</p>` : ''}
+        <p class="hint">Atualizado em ${esc(stamp(quando))}. Atualiza sozinho duas vezes por dia.${T.alerta && T.alerta.enviado && T.alerta.em ? ` O Jorge foi avisado no WhatsApp em ${esc(stamp(T.alerta.em))}.` : ''}</p>
+      </div>
+      <div class="kpis">
+        ${kpi('Investido', brl(gasto), periodoTxt)}
+        ${kpi('Vendas', num(compras), periodoTxt)}
+        ${kpi('Custo por venda', compras ? brl(gasto / compras) : '—', compras ? 'investido ÷ vendas' : 'sem vendas no período')}
+        ${kpi('Cliques no link', num(cliques), impressoes ? `${pct((cliques / impressoes) * 100)} de quem viu o anúncio` : periodoTxt)}
+        ${kpi('Checkouts iniciados', num(checkouts), cliques ? `${pct((checkouts / cliques) * 100)} dos cliques` : periodoTxt)}
+      </div>
+    </section>
+    <section class="charts" aria-label="Gráficos por dia">
+      <div class="chart"><h3>Investimento por dia<span class="tot">${esc(brl(gasto))}</span></h3>${graficoBarras(dias, 'gasto', 'var(--viz-gasto)', (v) => (v >= 1000 ? `R$ ${num(Math.round(v / 100) / 10)} mil` : v < 10 ? `R$ ${v.toLocaleString('pt-BR', { maximumFractionDigits: 1 })}` : `R$ ${num(Math.round(v))}`), largura)}</div>
+      <div class="chart"><h3>Vendas por dia<span class="tot">${esc(plural(compras, 'venda', 'vendas'))}</span></h3>${graficoBarras(dias, 'compras', 'var(--viz-vendas)', (v) => num(Math.round(v * 10) / 10), largura)}</div>
+    </section>
+    <section class="sec" aria-labelledby="tCamp">
+      <div class="sec-h"><h2 class="sec-t" id="tCamp">Campanhas</h2><span class="count">últimos 30 dias</span></div>
+      ${camps.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Campanha</th><th>Situação</th><th class="r">Orçamento por dia</th><th class="r">Investido</th><th class="r">Vendas</th><th class="r">Custo por venda</th></tr></thead><tbody>
+        ${camps.map((c) => `<tr><td>${esc(c.nome || 'Sem nome')}</td><td>${c.status === 'ACTIVE' ? 'Ativa' : 'Pausada'}</td><td class="r">${Number(c.orcamentoDia) > 0 ? esc(brl(c.orcamentoDia)) : '—'}</td><td class="r">${esc(brl(c.gasto))}</td><td class="r">${esc(num(c.compras))}</td><td class="r">${Number(c.compras) > 0 ? esc(brl(c.custoCompra || (c.gasto / c.compras))) : '—'}</td></tr>`).join('')}
+      </tbody></table></div>` : emptyBox('Nenhuma campanha gastou nos últimos 30 dias.')}
+    </section>
+    <details class="dias"><summary>Ver os números dia a dia</summary>
+      <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Dia</th><th class="r">Investido</th><th class="r">Vendas</th><th class="r">Cliques no link</th><th class="r">Checkouts</th><th class="r">Impressões</th></tr></thead><tbody>
+        ${dias.slice().reverse().map((x) => `<tr><td>${esc(fmtShort(x.d))}</td><td class="r">${esc(brl(x.gasto))}</td><td class="r">${esc(num(x.compras))}</td><td class="r">${esc(num(x.cliques))}</td><td class="r">${esc(num(x.checkouts))}</td><td class="r">${esc(num(x.impressoes))}</td></tr>`).join('')}
+      </tbody></table></div>
+    </details>
+    <p class="hint">Números do Gerenciador de Anúncios da conta do Igor. Cada dia segue o fuso da conta (horário do Pacífico), por isso pode diferir um pouco do dia daqui.</p>
+  </div>`;
+  ligarTooltips(dias);
+}
+let trafResize = 0;
+window.addEventListener('resize', () => { clearTimeout(trafResize); trafResize = setTimeout(() => { if (S.view === 'trafego') updTraf(); }, 200); });
 
 /* Eventos */
 function mountEv() {
@@ -850,8 +1173,8 @@ function setNome(n) {
 }
 
 /* ---------- escrita ---------- */
-const TABELA = { r: 'agenda_igor_roteiros', e: 'agenda_igor_eventos', m: 'agenda_igor_recados' };
-const LISTA = { r: 'roteiros', e: 'eventos', m: 'recados' };
+const TABELA = { r: 'agenda_igor_roteiros', e: 'agenda_igor_eventos', m: 'agenda_igor_recados', a: 'agenda_igor_aulas' };
+const LISTA = { r: 'roteiros', e: 'eventos', m: 'recados', a: 'aulas' };
 const novoId = () => (window.crypto && crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2, 12));
 const semId = (o) => { const c = { ...o }; delete c.id; return c; };
 function localPut(k, row) {
@@ -1064,6 +1387,130 @@ function openEvento(id, preset = {}) {
   if (!ro && !e) setTimeout(() => $('#eTitulo')?.focus(), 30);
 }
 
+function openAula(id, preset = {}, dia = '') {
+  const a = id ? S.aulas.find((x) => x.id === id) : null;
+  if (id && !a) { toast('Essa aula não existe mais.'); return; }
+  const v = a ? { ...a } : { modalidade: 'presencial', titulo: '', inicio: today(), hora: '', horaFim: '', repete: 'semanal', dias: [], ate: '', local: '', notas: '', excecoes: [], ...preset };
+  const ro = S.readOnly || !S.sb; const dis = ro ? ' disabled' : '';
+  const dias = diasDaAula(v);
+  const exc = (Array.isArray(v.excecoes) ? v.excecoes : []).filter(isYmd).sort();
+  const serie = (v.repete || 'nao') !== 'nao';
+  const podePular = a && !ro && serie && isYmd(dia) && aulaNoDia(a, dia);
+  openModal(`<form id="fAula" novalidate>
+    <div class="sheet-h"><h2 class="sheet-t" id="mTitle">${a ? 'Aula' : 'Nova aula'}</h2><button type="button" class="btn btn-ghost btn-sm" data-close>Fechar</button></div>
+    <div class="sheet-b">
+      <div class="grid2">
+        <div class="field"><label for="aMod">Tipo de aula</label><select id="aMod"${dis}>${opts(MODALIDADES, modOf(v))}</select></div>
+        <div class="field"><label for="aTitulo">Aluno ou turma</label><input id="aTitulo" maxlength="120" value="${esc(v.titulo)}" placeholder="Ex.: Turma de iniciantes"${dis}></div>
+      </div>
+      <div class="grid3">
+        <div class="field"><label for="aInicio">Começa em</label><input type="date" id="aInicio" value="${esc(str(v.inicio))}"${dis}></div>
+        <div class="field"><label for="aHora">Das</label><input type="time" id="aHora" value="${esc(str(v.hora))}"${dis}></div>
+        <div class="field"><label for="aHoraFim">Até as</label><input type="time" id="aHoraFim" value="${esc(str(v.horaFim))}"${dis}></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label for="aRepete">Repetir</label><select id="aRepete"${dis}>${opts(REPETE, REPETE.some((r) => r[0] === v.repete) ? v.repete : 'nao')}</select></div>
+        <div class="field" id="campoAte"><label for="aAte">Repetir até</label><input type="date" id="aAte" value="${esc(str(v.ate))}"${dis}><span class="hint">Em branco, a aula segue se repetindo.</span></div>
+      </div>
+      <div class="field" id="campoDias"><span class="lbl" id="lblDias">Dias da semana</span>
+        <div class="dias" role="group" aria-labelledby="lblDias">${DIAS_C.map((d, i) => `<label class="dia"><input type="checkbox" id="aDia${i}" value="${i}"${dias.includes(i) ? ' checked' : ''}${dis}><span>${d}</span></label>`).join('')}</div>
+      </div>
+      <p class="resumo" id="resumoRep" aria-live="polite"></p>
+      <div class="field"><label for="aLocal">Local ou link da aula</label><input id="aLocal" maxlength="300" value="${esc(v.local)}" placeholder="Endereço, ou o link da chamada se for on-line"${dis}></div>
+      <div class="field"><label for="aNotas">Notas</label><textarea id="aNotas" rows="3" maxlength="4000" placeholder="Valor combinado, conteúdo da turma, contato do aluno"${dis}>${esc(v.notas)}</textarea></div>
+      ${exc.length ? `<div class="field"><span class="lbl">Aulas canceladas</span><div class="exc" id="excList">${exc.map((d) => `<span class="exc-i">${esc(fmtShort(d))}${ro ? '' : `<button type="button" class="link-btn" data-restaurar="${d}">restaurar</button>`}</span>`).join('')}</div></div>` : ''}
+      ${a ? metaLine(a) : ''}
+      <p class="err" id="formErr" hidden></p>
+    </div>
+    <div class="sheet-f">
+      ${a && !ro ? `<span id="delWrap"><button type="button" class="btn btn-ghost danger" id="btnDel">${serie ? 'Apagar todas as datas' : 'Apagar'}</button></span>` : ''}
+      <div class="r">
+        ${podePular ? `<button type="button" class="btn" id="btnPular">Cancelar só a de ${esc(fmtShort(dia))}</button>` : ''}
+        ${ro ? '<button type="button" class="btn" data-close>Fechar</button>' : `<button type="submit" class="btn btn-primary" id="btnSalvar">Salvar</button>`}
+      </div>
+    </div>
+  </form>`);
+  const coletar = () => {
+    const rep = val('aRepete');
+    return {
+      modalidade: val('aMod') === 'online' ? 'online' : 'presencial',
+      titulo: val('aTitulo').trim(),
+      inicio: isYmd(val('aInicio')) ? val('aInicio') : '',
+      hora: val('aHora'), horaFim: val('aHoraFim'),
+      repete: REPETE.some((r) => r[0] === rep) ? rep : 'nao',
+      dias: DIAS_C.map((_, i) => i).filter((i) => document.getElementById('aDia' + i)?.checked),
+      ate: isYmd(val('aAte')) ? val('aAte') : '',
+      local: val('aLocal').trim(), notas: val('aNotas').trim(),
+    };
+  };
+  const sync = () => {
+    const b = coletar();
+    $('#campoDias').hidden = !(b.repete === 'semanal' || b.repete === 'quinzenal');
+    $('#campoAte').hidden = b.repete === 'nao';
+    if (!b.inicio) { $('#resumoRep').textContent = 'Escolha quando as aulas começam.'; return; }
+    const tmp = { ...b, excecoes: exc };
+    const proxs = [];
+    let d = b.inicio > today() ? b.inicio : today();
+    for (let i = 0; proxs.length < 4 && i < 400; i++, d = addDays(d, 1)) {
+      if (b.repete !== 'nao' && isYmd(b.ate) && d > b.ate) break;
+      if (aulaNoDia(tmp, d)) proxs.push(d);
+    }
+    $('#resumoRep').textContent = `${descRepete(tmp)}${horario(tmp) ? ', ' + horario(tmp) : ''}. ` +
+      (proxs.length ? `${proxs.length === 1 ? 'Próxima aula' : 'Próximas aulas'}: ${proxs.map(fmtShort).join(', ')}.` : 'Nenhuma aula daqui para frente com essas datas.');
+  };
+  if (!ro) {
+    let diasTocados = !!a;
+    $('#aInicio').addEventListener('change', () => {
+      const b = coletar();
+      if (b.inicio && (!diasTocados || !b.dias.length)) {
+        document.querySelectorAll('.dias input').forEach((c) => { c.checked = Number(c.value) === parse(b.inicio).getDay(); });
+      }
+      sync();
+    });
+    document.querySelectorAll('.dias input').forEach((c) => c.addEventListener('change', () => { diasTocados = true; }));
+    ['aRepete', 'aHora', 'aHoraFim', 'aAte'].forEach((k) => { $('#' + k).addEventListener('change', sync); $('#' + k).addEventListener('input', sync); });
+    document.querySelectorAll('.dias input').forEach((c) => c.addEventListener('change', sync));
+  }
+  sync();
+  if (a && !ro) {
+    $('#btnDel').addEventListener('click', () => delControls(async () => {
+      if (await write(() => dbDelete('a', a.id), serie ? 'Aulas apagadas' : 'Aula apagada')) closeModal();
+    }));
+    if (podePular) $('#btnPular').addEventListener('click', async () => {
+      const novas = [...new Set([...exc, dia])].sort();
+      if (await write(() => dbUpdate('a', a.id, { excecoes: novas, ...who() }), `Aula de ${fmtShort(dia)} cancelada`)) closeModal();
+    });
+    const lista = $('#excList');
+    if (lista) lista.addEventListener('click', async (ev) => {
+      const b = ev.target.closest('[data-restaurar]'); if (!b) return;
+      const novas = exc.filter((d) => d !== b.dataset.restaurar);
+      if (await write(() => dbUpdate('a', a.id, { excecoes: novas, ...who() }), `Aula de ${fmtShort(b.dataset.restaurar)} de volta na agenda`)) openAula(a.id, {}, dia);
+    });
+  }
+  $('#fAula').addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+    if (ro) return;
+    const body = coletar();
+    if (!body.inicio) { setErr('Escolha quando as aulas começam.'); $('#aInicio').focus(); return; }
+    if (!body.titulo) body.titulo = body.modalidade === 'online' ? 'Aula on-line' : 'Aula presencial';
+    if (body.repete === 'semanal' || body.repete === 'quinzenal') { if (!body.dias.length) body.dias = [parse(body.inicio).getDay()]; }
+    else body.dias = [];
+    if (body.repete === 'nao') body.ate = '';
+    if (body.ate && body.ate < body.inicio) { setErr('A data final vem antes do começo das aulas.'); return; }
+    if (body.hora && body.horaFim && body.horaFim <= body.hora) { setErr('O horário de término precisa ser depois do início.'); return; }
+    body.excecoes = exc.filter((d) => d >= body.inicio);
+    setErr('');
+    const btn = $('#btnSalvar'); btn.disabled = true;
+    const stampNow = who();
+    const novoIdA = novoId();
+    const ok = a
+      ? await write(() => dbUpdate('a', a.id, { ...body, ...stampNow }), 'Aula salva')
+      : await write(() => dbInsert('a', { ...body, ...stampNow, criadoPor: S.nome || '', criadoEm: stampNow.atualizadoEm }, novoIdA), body.repete === 'nao' ? 'Aula marcada' : 'Aulas marcadas na agenda');
+    if (ok) closeModal(); else if (btn.isConnected) btn.disabled = false;
+  });
+  if (!ro && !a) setTimeout(() => $('#aTitulo')?.focus(), 30);
+}
+
 /* ---------- modo leitura (teleprompter) ---------- */
 const TP = { open: false, playing: false, speed: 3, size: 0, mirror: false, raf: 0, last: 0, acc: 0, wl: null };
 try { const p = JSON.parse(localStorage.getItem('agenda-igor-tp') || '{}'); if (p.speed) TP.speed = p.speed; if (p.size) TP.size = p.size; TP.mirror = !!p.mirror; } catch (_) {}
@@ -1137,16 +1584,24 @@ function goDay(date) {
 
 let downOnOverlay = false;
 document.addEventListener('pointerdown', (ev) => { downOnOverlay = !!(ev.target.classList && ev.target.classList.contains('overlay')); });
+function fecharMenu() { const m = $('#addMenu'); if (!m.hidden) { m.hidden = true; $('#btnAdd').setAttribute('aria-expanded', 'false'); } }
 document.addEventListener('click', (ev) => {
+  if (ev.target.closest('#btnAdd')) { const m = $('#addMenu'); m.hidden = !m.hidden; $('#btnAdd').setAttribute('aria-expanded', String(!m.hidden)); if (!m.hidden) m.querySelector('button')?.focus(); return; }
+  const doMenu = !!ev.target.closest('#addMenu');
+  fecharMenu();
   const c = ev.target.closest('[data-close]');
   if (c && (c.tagName === 'BUTTON' || (ev.target === c && downOnOverlay))) { closeModal(); return; }
   const a = ev.target.closest('[data-act]'); if (!a) return;
-  const { act, id, date } = a.dataset;
+  const { act, id } = a.dataset;
+  let { date } = a.dataset;
+  if (!date && doMenu && S.view === 'calendario') date = S.sel;
   switch (act) {
     case 'ler': { const r = S.roteiros.find((x) => x.id === id); if (r) openTP(r); break; }
     case 'ler-dia': { const rs = S.roteiros.filter((r) => r.gravarEm === date).sort(byHora('horaGravar')); if (rs.length) openTP(rs); break; }
     case 'abrir': openRoteiro(id); break;
     case 'evento': openEvento(id); break;
+    case 'aula': openAula(id, {}, date || ''); break;
+    case 'nova-aula': openAula(null, { modalidade: a.dataset.mod === 'online' ? 'online' : 'presencial', ...(date ? { inicio: date, dias: [parse(date).getDay()] } : {}) }); break;
     case 'gravado': setStatus(id, 'gravado', 'Marcado como gravado'); break;
     case 'postado': setStatus(id, 'postado', 'Marcado como postado'); break;
     case 'avancar': { const r = S.roteiros.find((x) => x.id === id); if (r && NEXT[r.status]) setStatus(id, NEXT[r.status], `Movido para ${label(STATUS, NEXT[r.status])}`); break; }
@@ -1159,6 +1614,7 @@ document.addEventListener('click', (ev) => {
     case 'cal-prev': case 'cal-next': { const d = new Date(S.calY, S.calM + (act === 'cal-next' ? 1 : -1), 1); S.calY = d.getFullYear(); S.calM = d.getMonth(); updCal(); break; }
     case 'cal-hoje': { const t = today(), d = parse(t); S.sel = t; S.calY = d.getFullYear(); S.calM = d.getMonth(); updCal(); break; }
     case 'frente': S.frente = a.dataset.k; updRot(); break;
+    case 'traf-periodo': S.trafPeriodo = Number(a.dataset.dias) === 30 ? 30 : 7; document.querySelectorAll('.seg-b').forEach((b) => b.setAttribute('aria-pressed', String(b === a))); updTraf(); break;
     case 'del-recado': write(() => dbDelete('m', id), 'Recado apagado'); break;
   }
 });
@@ -1170,13 +1626,12 @@ document.addEventListener('keydown', (ev) => {
     else if (ev.key === 'ArrowDown') { ev.preventDefault(); TP.speed = Math.max(1, TP.speed - 1); applyTP(); saveTP(); }
     return;
   }
+  if (ev.key === 'Escape' && !$('#addMenu').hidden) { fecharMenu(); $('#btnAdd').focus(); return; }
   if (ev.key === 'Escape' && modalOpen()) { closeModal(); return; }
   if ((ev.key === 'Enter' || ev.key === ' ') && ev.target.matches('[role="button"][data-act]')) { ev.preventDefault(); ev.target.click(); }
 });
 document.querySelectorAll('.tab').forEach((b) => b.addEventListener('click', () => go(b.dataset.view)));
 $('#btnQuem').addEventListener('click', openQuem);
-$('#btnNovoRoteiro').addEventListener('click', () => openRoteiro(null, S.view === 'calendario' ? { gravarEm: S.sel } : {}));
-$('#btnNovoEvento').addEventListener('click', () => openEvento(null, S.view === 'calendario' ? { data: S.sel } : {}));
 
 function applyMode() {
   document.body.dataset.ro = S.readOnly || !S.sb ? '1' : '0';
@@ -1202,24 +1657,33 @@ async function carregar(k) {
   if (k === 'm') S.recados.sort((a, b) => str(b.criadoEm).localeCompare(str(a.criadoEm)));
   S.got[k] = true;
 }
+async function carregarTrafego() {
+  const { data, error } = await S.sb.from('agenda_igor_trafego').select('data,created_at').order('created_at', { ascending: false }).limit(1);
+  if (error) throw error;
+  S.trafego = data && data[0] && data[0].data ? { ...data[0].data, gravadoEm: data[0].created_at } : null;
+  S.got.t = true;
+}
 let carregando = null;
 function recarregar() {
   if (carregando) return carregando;
-  carregando = Promise.all(['r', 'e', 'm'].map(carregar))
+  carregando = Promise.all([...['r', 'e', 'm', 'a'].map(carregar), carregarTrafego().catch((e) => { console.error(e); S.got.t = true; })])
     .then(() => showBanner(''))
-    .catch((e) => { console.error(e); S.got = { r: true, e: true, m: true }; showBanner('Não deu para carregar a agenda. Confira a internet e recarregue a página.'); })
+    .catch((e) => { console.error(e); S.got = { r: true, e: true, m: true, a: true, t: true }; showBanner('Não deu para carregar a agenda. Confira a internet e recarregue a página.'); })
     .finally(() => { carregando = null; schedule(); });
   return carregando;
 }
 function aoVivo() {
   const ch = S.sb.channel('agenda-igor');
-  for (const k of ['r', 'e', 'm']) {
+  for (const k of ['r', 'e', 'm', 'a']) {
     ch.on('postgres_changes', { event: '*', schema: 'public', table: TABELA[k] }, (p) => {
       if (p.eventType === 'DELETE') { if (p.old && p.old.id) localDel(k, p.old.id); }
       else if (p.new && p.new.id) localPut(k, p.new);
       schedule();
     });
   }
+  ch.on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'agenda_igor_trafego' }, (p) => {
+    if (p.new && p.new.data) { S.trafego = { ...p.new.data, gravadoEm: p.new.created_at }; S.got.t = true; schedule(); }
+  });
   ch.subscribe((status) => {
     const live = status === 'SUBSCRIBED';
     if (live && !S.live && S.everLive) recarregar();
@@ -1237,7 +1701,7 @@ async function boot() {
   applyMode();
   mount();
   if (!window.supabase || !window.supabase.createClient) {
-    S.noDb = true; S.got = { r: true, e: true, m: true };
+    S.noDb = true; S.got = { r: true, e: true, m: true, a: true, t: true };
     showBanner('Não deu para carregar a agenda. Confira a internet e recarregue a página.');
     applyMode(); update(); return;
   }
